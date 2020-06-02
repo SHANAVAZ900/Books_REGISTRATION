@@ -1,9 +1,13 @@
 import os
+import requests
 
-from flask import Flask, session
+from flask import Flask, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from flask.templating import render_template
+
+import sys
 
 app = Flask(__name__)
 
@@ -24,3 +28,13 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/")
 def index():
     return "Project 1: TODO"
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        print(username, file=sys.stderr)
+        return render_template("home.html", username=username)
+    return render_template("registration.html")
