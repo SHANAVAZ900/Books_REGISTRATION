@@ -36,5 +36,6 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
         print(username, file=sys.stderr)
+        #print(password, file=sys.stderr)
         return render_template("home.html", username=username)
     return render_template("registration.html")
