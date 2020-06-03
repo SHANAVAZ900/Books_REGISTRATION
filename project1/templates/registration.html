@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>REGISTRATION</title>
+    <style>
+        .container {
+            background-color: hotpink;
+        }
+    </style>
+</head>
+
+<body>
+    <div" class="container">
+
+        <form align="center" Style="padding-top:250px" ; method="POST" name="form">
+            <label> username:</label>
+            <input type="text" name="username" style="color:hotpink;" required /> <br />
+            <p style="color:hotpink;" class="usermessage"></p><br />
+            <label>password:</label>
+            <input type="password" name="password" style="color:hotpink;" required /><br />
+            <p style="color:hotpink;" class="passmessage"></p><br />
+            <button type="submit" formmethod="POST" onclick="return validateForm()"
+                formaction="{{ url_for('userDetails') }}"> Register </button>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+            &nbsp;&nbsp;
+        </form>
+        </div>
+
+</html>
