@@ -1,28 +1,25 @@
 import os
+import time
 import requests
-
-from flask import Flask, request
-from flask_session import Session
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-from flask.templating import render_template
-
-import sys
+from flask import Flask, session, render_template, request, redirect, url_for
+from register import *
+from sqlalchemy import or_
 
 app = Flask(__name__)
+
 
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
 # Configure session to use filesystem
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Set up database
-engine = create_engine(os.getenv("DATABASE_URL"))
-db = scoped_session(sessionmaker(bind=engine))
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
 
 
 @app.route("/")
@@ -30,12 +27,33 @@ def index():
     return "Project 1: TODO"
 
 
+@app.route("/admin")
+def allusers():
+    users = User.query.all()
+    return render_template('admin.html', users=users)
+
+
 @app.route("/register", methods=["GET", "POST"])
-def register():
+def userDetails():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        print(username, file=sys.stderr)
-        #print(password, file=sys.stderr)
-        return render_template("home.html", username=username)
+
+        # checking the user data is present or not
+        userData = User.query.filter_by(username=username).first()
+
+        if userData is not None:
+            return render_template("registration.html", message="email already exists, Please login.")
+        else:
+            user = User(
+                username=username, password=password, timeStamp=time.ctime(time.time()))
+
+            # checking the registration details entered perfectly or not
+            try:
+                db.session.add(user)
+                db.session.commit()
+                return render_template("home.html",  username=username, message="Successfully entered")
+
+            except:
+                return render_template("registration.html", message="please fill the details properly")
     return render_template("registration.html")
