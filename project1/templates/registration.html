@@ -24,7 +24,10 @@
                 formaction="{{ url_for('userDetails') }}"> Register </button>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
             &nbsp;&nbsp;
+            <button class="btn btn-success" type="submit" formmethod="POST" onclick="return validateForm()"
+                formaction="{{ url_for('auth') }}">Login</button>
         </form>
+        <h3 align="center">{{message}}</h3>
         </div>
 
 </html>
