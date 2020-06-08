@@ -6,7 +6,6 @@ from register import *
 from sqlalchemy import or_
 
 app = Flask(__name__)
-app.secret_key = 'my precious'
 
 
 # Check for environment variable
@@ -25,7 +24,7 @@ with app.app_context():
 
 @app.route("/")
 def index():
-    return render_template('registration.html')
+    return "Project 1: TODO"
 
 
 @app.route("/admin")
@@ -58,37 +57,3 @@ def userDetails():
             except:
                 return render_template("registration.html", message="please fill the details properly")
     return render_template("registration.html")
-
-
-@app.route("/home/<user>")
-def userHome(user):
-    if user in session:
-        return render_template('user.html', username=user, message="entered successful")
-    return redirect(url_for('index'))
-
-
-@app.route("/auth", methods=["POST", "GET"])
-def auth():
-    if request.method == "POST":
-        username = request.form.get('username')
-        password = request.form.get('password')
-
-        # checking if the user is there or not
-        userData = User.query.filter_by(username=username).first()
-
-        # if the user is there then checking username and password is correct
-        if userData is not None:
-            if userData.username == username and userData.password == password:
-                session[username] = username
-                return redirect(url_for('userHome', user=username))
-            # user verification failed
-            else:
-                return render_template("registration.html", message="username/password is incorrect!!")
-        else:
-            return render_template("registration.html", message="Account doesn't exists, Please register!")
-
-
-@app.route("/logout/<username>", methods=["POST", "GET"])
-def logout(username):
-    session.pop(username, None)
-    return render_template('registration.html', message="logged out successful")
