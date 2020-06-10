@@ -20,8 +20,12 @@
         <form>
             <button class="btn btn-success" type="submit" formmethod="POST" onclick="return validateForm()"
                 formaction="{{ url_for('logout',username=username) }}">Logout</button>
+            <button class="btn btn-success" type="submit" formmethod="GET" onclick="return validateForm()"
+                formaction="{{ url_for('search',username=username) }}">Search</button>
         </form>
-    </div>
+
+
+
 
 
 
