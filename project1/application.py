@@ -4,6 +4,7 @@ import requests
 from flask import Flask, session, render_template, request, redirect, url_for
 from register import *
 from sqlalchemy import or_
+from booklist import books
 
 app = Flask(__name__)
 app.secret_key = 'my precious'
@@ -63,7 +64,7 @@ def userDetails():
 @app.route("/home/<user>")
 def userHome(user):
     if user in session:
-        return render_template('user.html', username=user, message="entered successful")
+        return render_template('search.html', username=user, message="entered successful")
     return redirect(url_for('index'))
 
 
@@ -92,3 +93,17 @@ def auth():
 def logout(username):
     session.pop(username, None)
     return render_template('registration.html', message="logged out successful")
+
+
+@app.route("/search/<username>", methods=["POST", "GET"])
+def search(username):
+
+    if request.method == "GET":
+        return redirect(url_for('index'))
+
+    else:
+        res = request.form.get("find")
+        res = '%'+res+'%'
+        result = books.query.filter(or_(books.title.ilike(
+            res), books.author.ilike(res), books.isbn.ilike(res))).all()
+        return render_template("search.html", result=result, username=username)

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+
+    <form class="form-inline my-2 my-lg-0" action="{{ url_for('logout',username=username) }}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+    </form>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="searchbar">
+                    <form>
+                        <input class="search_input" type="text" name="find" placeholder="Search...">
+                        <button type="submit" class="btn btn-success"
+                            formaction="{{ url_for('search',username=username) }}" formmethod="POST">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <h3 style="margin:20px;">Search Results</h3>
+        <table style="text-align: center;" class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Isbn</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in result %}
+                <tr>
+                    <td><a href="#">{{book.isbn}}</a></td>
+                    <td>{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.year}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
