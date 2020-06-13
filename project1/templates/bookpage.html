@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{book.title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href=" https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
+        integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous">
+        </script>
+</head>
+
+<body>
+    <div>
+        <form class="form-inline my-2 my-lg-0" action="{{ url_for('logout',username=username) }}">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout
+            </button>
+        </form>
+    </div>
+
+
+    <div class="container">
+        <div>
+            <table align="center">
+                <tr>
+                    <thead>
+                        <h1>{{book.title}}</h1>
+                    </thead>
+
+                </tr>
+                <tr>
+                    <td><b>ISBN:&nbsp&nbsp</b>{{res['isbn']}}</td>
+
+                </tr>
+                <tr>
+                    <td><b>Author:&nbsp&nbsp</b>{{book.author}}</td>
+                </tr>
+                <tr>
+                    <td><b>Rating:&nbsp&nbsp</b>{{res['average_rating']}}</td>
+                </tr>
+                <tr>
+                    <td><b>Year Published:&nbsp&nbsp</b>{{book.year}}</td>
+                </tr>
+                <tr>
+                    <td><b>Review Count:&nbsp&nbsp</b>{{res['reviews_count']}}</td>
+                </tr>
+            </table>
+            <!--Another way of using the given inforamtion in Table format in hover-->
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">TITLE</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Review Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{book.title}}</td>
+                        <td>{{res['isbn']}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{res['average_rating']}}</td>
+                        <td>{{book.year}}</td>
+                        <td>{{res['reviews_count']}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+</html>
