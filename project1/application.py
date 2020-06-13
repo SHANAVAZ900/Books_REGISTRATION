@@ -1,10 +1,11 @@
 import os
 import time
 import requests
-from flask import Flask, session, render_template, request, redirect, url_for
+from flask import Flask, json, redirect, render_template, request, session, url_for
 from register import *
 from sqlalchemy import or_
 from booklist import books
+
 
 app = Flask(__name__)
 app.secret_key = 'my precious'
@@ -64,7 +65,7 @@ def userDetails():
 @app.route("/home/<user>")
 def userHome(user):
     if user in session:
-        return render_template('search.html', username=user, message="entered successful")
+        return render_template("search.html", username=user, message="entered successful")
     return redirect(url_for('index'))
 
 
@@ -81,7 +82,7 @@ def auth():
         if userData is not None:
             if userData.username == username and userData.password == password:
                 session[username] = username
-                return redirect(url_for('userHome', user=username))
+                return redirect(url_for("userHome", user=username))
             # user verification failed
             else:
                 return render_template("registration.html", message="username/password is incorrect!!")
@@ -92,7 +93,7 @@ def auth():
 @app.route("/logout/<username>", methods=["POST", "GET"])
 def logout(username):
     session.pop(username, None)
-    return render_template('registration.html', message="logged out successful")
+    return render_template("registration.html", message="logged out successful")
 
 
 @app.route("/search/<username>", methods=["POST", "GET"])
@@ -107,3 +108,30 @@ def search(username):
         result = books.query.filter(or_(books.title.ilike(
             res), books.author.ilike(res), books.isbn.ilike(res))).all()
         return render_template("search.html", result=result, username=username)
+
+
+@app.route("/bookpage/<username>/<isbn>", methods=["POST", "GET"])
+def bookpage(username, isbn):
+
+    user1 = username
+    bookisbn = isbn
+    # allow the user only if he in session
+    if user1 in session:
+        # details are being retrieved from goodreads api
+        res = requests.get("https://www.goodreads.com/book/review_counts.json",
+                           params={"key": "GfoQsiFrU8JgChm0fDRMA", "isbns": bookisbn})
+
+        book = books.query.filter_by(isbn=bookisbn).first()
+        # Parsing the data
+        data = res.text
+        parsed = json.loads(data)
+        print(parsed)
+        res = {}
+        for i in parsed:
+            for j in (parsed[i]):
+                res = j
+
+        return render_template("bookpage.html", book=book, res=res,  username=user1)
+
+    else:
+        return redirect(url_for('index'))
