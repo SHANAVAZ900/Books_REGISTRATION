@@ -23,7 +23,8 @@
             <div class="d-flex justify-content-center">
                 <div class="searchbar">
                     <form>
-                        <input class="search_input" type="text" name="find" placeholder="Search...">
+                        <input class="search_input" type="text" name="find" placeholder="search_input">
+
                         <button type="submit" class="btn btn-success"
                             formaction="{{ url_for('search',username=username) }}" formmethod="POST">Search</button>
                     </form>
@@ -43,7 +44,7 @@
             <tbody>
                 {% for book in result %}
                 <tr>
-                    <td><a href="#">{{book.isbn}}</a></td>
+                    <td><a href="{{url_for('bookpage',isbn=book.isbn,username=username)}}">{{book.isbn}}</a></td>
                     <td>{{book.title}}</td>
                     <td>{{book.author}}</td>
                     <td>{{book.year}}</td>
