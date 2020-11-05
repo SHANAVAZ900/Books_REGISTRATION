@@ -6,6 +6,7 @@ from register import *
 from sqlalchemy import or_
 from booklist import books
 
+
 app = Flask(__name__)
 app.secret_key = 'my precious'
 
