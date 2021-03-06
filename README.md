@@ -1,37 +1,13 @@
-## Welcome to GitHub Pages
+## Adminer
 
-You can use the [editor on GitHub](https://github.com/SHANAVAZ900/Books_REGISTRATION/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+https://adminer.cs50.net/?pgsql=ec2-34-230-149-169.compute-1.amazonaws.com
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+## project guide
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+https://docs.cs50.net/ocw/web/projects/1/project1.html
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+## goodreads Api
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SHANAVAZ900/Books_REGISTRATION/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+https://www.goodreads.com/api/index
